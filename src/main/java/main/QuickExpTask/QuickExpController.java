@@ -1,21 +1,19 @@
 package main.QuickExpTask;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import quickExpTask.QuickExp.QuickBigMath;
 
 import java.math.BigInteger;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class QuickExpController {
 
 
     @GetMapping(value = "/quickExp")
-    public BigInteger quickExp(@RequestParam(value = "a") BigInteger a,
+    public String quickExp(@RequestParam(value = "a") BigInteger a,
                                 @RequestParam(value = "b") BigInteger b){
-        return QuickBigMath.quickExp(a, b);
+        return QuickBigMath.quickExp(a, b).toString();
     }
 
 
