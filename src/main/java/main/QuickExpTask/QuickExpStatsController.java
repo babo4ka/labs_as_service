@@ -1,6 +1,7 @@
 package main.QuickExpTask;
 
 import Random.Random;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +10,7 @@ import quickExpTask.QuickExp.QuickBigMath;
 import java.math.BigInteger;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class QuickExpStatsController {
 
     @GetMapping(value = "/quickExpModStats")
@@ -57,11 +59,11 @@ public class QuickExpStatsController {
             BigInteger result = QuickBigMath.quickExpMod(a,b,m);
             long endTime = System.nanoTime();
             long quickTime = endTime-startTime;
-            System.out.println(quickTime);
+
             startTime = System.nanoTime();
             QuickBigMath.quickExp(a,b).mod(m);
             endTime = System.nanoTime();
-            System.out.println(endTime - startTime);
+
             stats.addLongStats(a,b,m, length, result, quickTime, endTime-startTime);
 
             length = length.add(step);
