@@ -33,7 +33,6 @@ public class PrimeCheckController {
     public List<Stats> areNumbersPrime(
             @RequestParam("file")MultipartFile file
             ) throws IOException {
-        System.out.println(file.getOriginalFilename());
         File convFile = new File(System.getProperty("java.io.tmpdir")+"/"+ file.getOriginalFilename());
 
         file.transferTo(convFile);
@@ -67,7 +66,6 @@ public class PrimeCheckController {
                     args.length > 1 ? new BigInteger(args[1]) : null, prime ? "возможно простое" : "составное"));
         });
 
-        stats.forEach(s-> System.out.println(s.toString()));
         return stats;
     }
 
