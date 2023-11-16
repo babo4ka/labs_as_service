@@ -33,7 +33,7 @@
         <dependency>
             <groupId>com.github.babo4ka</groupId>
             <artifactId>kripta_prak</artifactId>
-            <version>veersion1</version>
+            <version>v2</version>
         </dependency>
 
         <dependency>

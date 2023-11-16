@@ -12,7 +12,7 @@ public class QuickExpStats {
     private List<BigInteger> bS = new ArrayList<>();
     private List<BigInteger> mS = new ArrayList<>();
     private List<BigInteger> results = new ArrayList<>();
-    private List<BigInteger> numsLength = new ArrayList<>();
+    private List<Integer> numsLength = new ArrayList<>();
     private List<Long> quickTimes = new ArrayList<>();
     private List<Long> longTimes = null;
 
@@ -36,7 +36,7 @@ public class QuickExpStats {
         return mS;
     }
 
-    public List<BigInteger> getNumsLength() {
+    public List<Integer> getNumsLength() {
         return numsLength;
     }
 
@@ -47,7 +47,7 @@ public class QuickExpStats {
     public QuickExpStats(){
     }
 
-    public void addQuickStats(BigInteger a, BigInteger b, BigInteger m, BigInteger length, BigInteger result,
+    public void addQuickStats(BigInteger a, BigInteger b, BigInteger m, int length, BigInteger result,
                               long time){
         this.aS.add(a);
         this.bS.add(b);
@@ -57,7 +57,7 @@ public class QuickExpStats {
         this.results.add(result);
     }
 
-    public void addLongStats(BigInteger a, BigInteger b, BigInteger m, BigInteger length, BigInteger result,
+    public void addLongStats(BigInteger a, BigInteger b, BigInteger m, int length, BigInteger result,
                              long quickTime, long longTime){
         this.aS.add(a);
         this.bS.add(b);

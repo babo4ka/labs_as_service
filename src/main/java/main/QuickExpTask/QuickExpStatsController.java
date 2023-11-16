@@ -1,6 +1,6 @@
 package main.QuickExpTask;
 
-import Random.Random;
+import random.Random;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,8 +15,8 @@ public class QuickExpStatsController {
 
     @GetMapping(value = "/quickExpModStats")
     public QuickExpStats getQuickExpModResults(
-            @RequestParam(value = "length") BigInteger length,
-            @RequestParam(value = "step") BigInteger step,
+            @RequestParam(value = "length") int length,
+            @RequestParam(value = "step") int step,
             @RequestParam(value = "count") int count
             ){
         QuickExpStats stats = new QuickExpStats();
@@ -33,7 +33,7 @@ public class QuickExpStatsController {
 
             stats.addQuickStats(a,b,m, length, result, endTime-startTime);
 
-            length = length.add(step);
+            length += step;
         }
 
         return stats;
@@ -42,8 +42,8 @@ public class QuickExpStatsController {
 
     @GetMapping("/quickExpAndModStats")
     public QuickExpStats getQuickExpAndModStats(
-            @RequestParam(value = "length") BigInteger length,
-            @RequestParam(value = "step") BigInteger step,
+            @RequestParam(value = "length") int length,
+            @RequestParam(value = "step") int step,
             @RequestParam(value = "count") int count
     ){
         QuickExpStats stats = new QuickExpStats();
@@ -66,7 +66,7 @@ public class QuickExpStatsController {
 
             stats.addLongStats(a,b,m, length, result, quickTime, endTime-startTime);
 
-            length = length.add(step);
+            length += step;
         }
         return stats;
     }
