@@ -52,6 +52,12 @@ public class PrimeCheckController {
         return getResults(numsToCheck);
     }
 
+    private PrimeNumbers forGenerate = new PrimeNumbers();
+    @GetMapping("/generatePrime")
+    public String generatePrimeNum(@RequestParam("length") int length){
+        return forGenerate.generatePrime(length).toString();
+    }
+
     private List<Stats> getResults(List<String> nums){
         List<Stats> stats = new ArrayList<>();
         PrimeNumbers pn = new PrimeNumbers();
