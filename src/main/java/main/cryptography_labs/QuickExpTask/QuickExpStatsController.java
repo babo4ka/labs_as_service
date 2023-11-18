@@ -1,4 +1,4 @@
-package main.QuickExpTask;
+package main.cryptography_labs.QuickExpTask;
 
 import random.Random;
 import org.springframework.web.bind.annotation.CrossOrigin;

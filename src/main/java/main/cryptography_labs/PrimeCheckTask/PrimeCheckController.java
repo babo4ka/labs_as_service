@@ -1,4 +1,4 @@
-package main.PrimeCheckTask;
+package main.cryptography_labs.PrimeCheckTask;
 
 import millerRabinTask.PrimeNumbers;
 import org.springframework.web.bind.annotation.*;

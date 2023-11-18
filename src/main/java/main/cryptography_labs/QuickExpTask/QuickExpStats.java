@@ -1,6 +1,4 @@
-package main.QuickExpTask;
-
-import org.springframework.boot.context.properties.bind.Name;
+package main.cryptography_labs.QuickExpTask;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

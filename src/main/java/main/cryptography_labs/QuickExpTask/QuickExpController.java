@@ -1,4 +1,4 @@
-package main.QuickExpTask;
+package main.cryptography_labs.QuickExpTask;
 
 import org.springframework.web.bind.annotation.*;
 import quickExpTask.QuickExp.QuickBigMath;
