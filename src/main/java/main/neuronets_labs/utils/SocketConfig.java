@@ -1,4 +1,4 @@
-package main.neuronets_labs;
+package main.neuronets_labs.utils;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
