@@ -29,7 +29,6 @@ public class Task1Controller {
         Task1Data data = new Task1Data(dataX1, dataX2, 1);
         Gson g = new Gson();
         String request = g.toJson(data);
-
         ResultsRequester rq = new ResultsRequester();
 
         return rq.request(request);
@@ -48,7 +47,6 @@ public class Task1Controller {
         Task1Data data = new Task1Data(dataX1, dataX2, 2);
         Gson g = new Gson();
         String request = g.toJson(data);
-
         ResultsRequester rq = new ResultsRequester();
 
         return rq.request(request);
