@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:3000"})
+@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.0.103:3000"})
 public class PrimeCheckController {
 
     @GetMapping("/isPrime")
