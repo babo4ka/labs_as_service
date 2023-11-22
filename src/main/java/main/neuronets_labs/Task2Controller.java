@@ -3,6 +3,7 @@ package main.neuronets_labs;
 import com.google.gson.Gson;
 import main.neuronets_labs.utils.ResultsRequester;
 import main.neuronets_labs.utils.TaskNum;
+import main.utils.LogWriter;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -20,6 +22,7 @@ public class Task2Controller {
 
     @GetMapping("/operateGradInDot")
     public String operateGradInDot(@RequestParam("dot") String dot) throws ParseException, IOException {
+        LogWriter writer = new LogWriter(new Date(), "/operateGradInDot");
         JSONParser parser = new JSONParser(dot);
 
         List<List<Float>> dotAsList = new ArrayList<>();
@@ -27,6 +30,8 @@ public class Task2Controller {
         for(Object obj: parser.parseArray()){
             dotAsList.add((List<Float>) obj);
         }
+
+        writer.appendRequestData(dotAsList.toString());
 
         Task2Data data = new Task2Data(dotAsList, 3);
 
@@ -34,12 +39,16 @@ public class Task2Controller {
         String request = g.toJson(data);
         ResultsRequester rq = new ResultsRequester();
 
-        return rq.request(request);
+        String result = rq.request(request);
+        writer.appendResponseData(result).writeData();
+
+        return result;
     }
 
     @GetMapping("/operateGradDesc")
     public String operateGradDesc(@RequestParam("dot") String dot,
                                   int steps) throws ParseException, IOException {
+        LogWriter writer = new LogWriter(new Date(), "/operateGradDesc");
         JSONParser parser = new JSONParser(dot);
 
         List<List<Float>> dotAsList = new ArrayList<>();
@@ -47,6 +56,8 @@ public class Task2Controller {
         for(Object obj: parser.parseArray()){
             dotAsList.add((List<Float>) obj);
         }
+
+        writer.appendRequestData(dotAsList.toString());
 
         Task2Data data = new Task2Data(dotAsList, 4);
         data.addSteps(steps);
@@ -55,7 +66,10 @@ public class Task2Controller {
         String request = g.toJson(data);
         ResultsRequester rq = new ResultsRequester();
 
-        return rq.request(request);
+        String result = rq.request(request);
+        writer.appendResponseData(result).writeData();
+
+        return result;
     }
 
     public static class Task2Data extends TaskNum {

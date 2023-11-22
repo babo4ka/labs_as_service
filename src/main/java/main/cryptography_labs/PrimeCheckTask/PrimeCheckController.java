@@ -1,5 +1,6 @@
 package main.cryptography_labs.PrimeCheckTask;
 
+import main.utils.LogWriter;
 import millerRabinTask.PrimeNumbers;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,14 +21,25 @@ public class PrimeCheckController {
     @GetMapping("/isPrime")
     public Stats isNumberPrime(
             @RequestParam(value = "line") String line
-    ){
+    ) throws IOException {
         String[] args = line.split("_");
 
-        PrimeNumbers pn = args.length>1?new PrimeNumbers(new BigInteger(args[1])):new PrimeNumbers();
-        boolean prime = pn.isPrime(new BigInteger(args[0]));
+        BigInteger number = new BigInteger(args[0]);
+        BigInteger rounds = args.length>1?new BigInteger(args[1]):null;
 
-        return new Stats(new BigInteger(args[0]),
-                args.length > 1 ? new BigInteger(args[1]) : null, prime ? "возможно простое" : "составное");
+        LogWriter writer = new LogWriter(new Date(), "/isPrime");
+
+        PrimeNumbers pn = rounds==null?new PrimeNumbers():new PrimeNumbers(rounds);
+        boolean prime = pn.isPrime(number);
+
+        writer.appendRequestData(" число: " + args[0])
+                .appendResponseData(prime?" возможно простое":" составное");
+
+        if(rounds != null)writer.appendRequestData(" раунды: " + rounds);
+
+        writer.writeData();
+
+        return new Stats(number, rounds, prime ? "возможно простое" : "составное");
     }
 
     @PostMapping("/arePrime")
@@ -47,15 +60,32 @@ public class PrimeCheckController {
             numsToCheck.add(line);
         }
 
+        List<Stats> results = getResults(numsToCheck);
+        LogWriter writer = new LogWriter(new Date(), "/arePrime");
+
+        for(Stats s : results){
+            writer.appendRequestData(" число: " + s.getNum()).appendResponseData(s.getAnswer() + "\n");
+            if(s.getRounds() != null)writer.appendRequestData(" раунды: " + s.getRounds() + "\n");
+            else writer.appendRequestData("\n");
+        }
+
+        writer.writeData();
 
         System.out.println(convFile.delete());
-        return getResults(numsToCheck);
+        return results;
     }
 
     private PrimeNumbers forGenerate = new PrimeNumbers();
     @GetMapping("/generatePrime")
-    public String generatePrimeNum(@RequestParam("length") int length){
-        return forGenerate.generatePrime(length).toString();
+    public String generatePrimeNum(@RequestParam("length") int length) throws IOException {
+        LogWriter writer = new LogWriter(new Date(), "/generatePrime");
+
+        BigInteger result = forGenerate.generatePrime(length);
+
+        writer.appendRequestData(" длина: " + length)
+                .appendResponseData(result.toString()).writeData();
+
+        return result.toString();
     }
 
     private List<Stats> getResults(List<String> nums){
